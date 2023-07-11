@@ -1,0 +1,63 @@
+.table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Table {
+  width: 70%;
+}
+
+.Table td {
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 10px;
+}
+
+.Table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: rgb(26 37 103);
+  color: white;
+}
+
+.pagination {
+  margin-top: 40px;
+}
+
+.pagination input {
+  margin: 0 10px;
+  width: 50px;
+  height: 30px;
+  border: 0.5px solid black;
+}
+
+.pagination select {
+  margin: 0 10px;
+  height: 35px;
+  font-size: medium;
+  margin-bottom: 10px;
+}
+
+.pagination button {
+  width: 8rem;
+  height: 30px;
+  margin: 15px;
+}
+
+.search {
+  position: relative;
+  left: 27%;
+  margin: 2rem !important;
+  display: inline-block;
+  font-weight: 300;
+}
+
+.search input {
+  margin: 0 2px;
+  height: 25px;
+  width: 200px;
+  border-radius: 3px;
+  border: 3px solid black;
+}
