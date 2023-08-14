@@ -9,7 +9,8 @@ const Leave = () => {
   return (
     <>
       <Navbar />
-      <Table Columns={Columns} data={data} />
+      <h1>Leave Requests</h1>
+      <Table Columns={Columns} data={data} button={"Leave"}/>
     </>
   );
 };

@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { useTable, useGlobalFilter, usePagination } from "react-table";
 import "./Table.css";
 
-const Employee = ({ Columns, data }) => {
+const Employee = ({ Columns, data, button }) => {
   const columns = useMemo(() => Columns, []);
   const {
     getTableProps,
@@ -41,6 +41,15 @@ const Employee = ({ Columns, data }) => {
               setGlobalFilter(e.target.value);
             }}
           />
+          {button && (
+            <>
+              <img
+                src="https://pic.onlinewebfonts.com/thumbnails/icons_571011.svg"
+                alt=""
+              />
+              <p className="new">New {button}</p>
+            </>
+          )}
         </span>
         <table {...getTableProps()} className="Table">
           <thead>

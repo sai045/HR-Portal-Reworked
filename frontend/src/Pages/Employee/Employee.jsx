@@ -9,7 +9,8 @@ const Employee = () => {
   return (
     <>
       <Navbar />
-      <Table Columns={Columns} data={data} />
+      <h1>Employees</h1>
+      <Table Columns={Columns} data={data} button={"Employee"} />
     </>
   );
 };

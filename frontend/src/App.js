@@ -6,6 +6,7 @@ import Employee from './Pages/Employee/Employee';
 import Leave from "./Pages/Leave Requests/Leave"
 import Schedule from "./Pages/Schedule/Schedule"
 import Travel from "./Pages/Travel Requests/Travel"
+import Complaints from "./Pages/Compaints/Complaints"
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/leave" element={<Leave />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/travel" element={<Travel />} />
+          <Route path='/complaint' element={<Complaints/>} />
         </Routes>
       </Router>
     </div>

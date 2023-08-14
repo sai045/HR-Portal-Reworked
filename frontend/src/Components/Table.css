@@ -48,7 +48,7 @@
 
 .search {
   position: relative;
-  left: 27%;
+  left: 26%;
   margin: 2rem !important;
   display: inline-block;
   font-weight: 300;
@@ -60,4 +60,41 @@
   width: 200px;
   border-radius: 3px;
   border: 3px solid black;
+}
+
+.table button {
+  border: none;
+  padding: 5px 20px;
+  border-radius: 5px;
+  background-color: aliceblue;
+}
+
+.table button:hover {
+  cursor: pointer;
+  background-color: rgb(30, 55, 77);
+  color: white;
+}
+
+.table img {
+  height: 40px;
+  width: 40px;
+  display: inline-block;
+  position: relative;
+  top: 15px;
+  margin: 0 10px;
+}
+
+.new {
+  display: inline-block;
+  position: absolute;
+  /* top: 30px; */
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  padding: 10px;
+  /* right: -100px; */
+  display: none;
+}
+
+.table img:hover + .new {
+  display: inline-block;
 }

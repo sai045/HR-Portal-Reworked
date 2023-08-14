@@ -11,7 +11,7 @@ const Home = () => {
         <div className="homeButtons">
           <div className="row">
             <IconButton
-              imgLink="http://cdn.onlinewebfonts.com/svg/img_233159.svg"
+              imgLink="https://cdn.onlinewebfonts.com/svg/img_233159.svg"
               title="DashBoard"
             />
             <IconButton
@@ -20,32 +20,33 @@ const Home = () => {
               link="employee"
             />
             <IconButton
-              imgLink="http://cdn.onlinewebfonts.com/svg/img_189017.png"
+              imgLink="https://cdn.onlinewebfonts.com/svg/img_189017.png"
               title="Schedule"
               link="schedule"
             />
             <IconButton
-              imgLink="http://cdn.onlinewebfonts.com/svg/img_209777.png"
+              imgLink="https://cdn.onlinewebfonts.com/svg/img_209777.png"
               title="Applicants"
               link="applicant"
             />
           </div>
           <div className="row">
             <IconButton
-              imgLink="http://cdn.onlinewebfonts.com/svg/img_131998.png"
+              imgLink="https://cdn.onlinewebfonts.com/svg/img_131998.png"
               title="Travel Requests"
               link="travel"
             />
             <IconButton
-              imgLink="http://cdn.onlinewebfonts.com/svg/img_235631.png"
+              imgLink="https://cdn.onlinewebfonts.com/svg/img_235631.png"
               title="Complaints"
+              link="complaint"
             />
             <IconButton
-              imgLink="http://cdn.onlinewebfonts.com/svg/img_235198.png"
+              imgLink="https://cdn.onlinewebfonts.com/svg/img_235198.png"
               title="Salary"
             />
             <IconButton
-              imgLink="http://cdn.onlinewebfonts.com/svg/img_129646.png"
+              imgLink="https://cdn.onlinewebfonts.com/svg/img_129646.png"
               title="Leave Requests"
               link="leave"
             />

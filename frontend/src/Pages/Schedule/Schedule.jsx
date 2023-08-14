@@ -9,6 +9,7 @@ const Schedule = () => {
   return (
     <>
       <Navbar />
+      <h1>Schedule</h1>
       <Table Columns={Columns} data={data} />
     </>
   );

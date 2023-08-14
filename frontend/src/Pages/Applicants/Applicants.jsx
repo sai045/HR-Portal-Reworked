@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import Applicants from "./data";
-import Columns from "./columns";
+import { Columns } from "./columns";
 import Table from "../../Components/Table";
 import Navbar from "../../Components/Navbar";
 
@@ -9,7 +9,8 @@ const Applicant = () => {
   return (
     <>
       <Navbar />
-      <Table Columns={Columns} data={data} />
+      <h1>Applicants</h1>
+      <Table Columns={Columns} data={data} button={"Applicant"}/>
     </>
   );
 };

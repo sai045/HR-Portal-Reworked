@@ -9,7 +9,8 @@ const Travel = () => {
   return (
     <>
       <Navbar />
-      <Table Columns={Columns} data={data} />
+      <h1>Travel Requests</h1>
+      <Table Columns={Columns} data={data} button={"Travel"}/>
     </>
   );
 };
