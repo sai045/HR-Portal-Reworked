@@ -1,0 +1,46 @@
+.heading {
+  margin: 50px;
+}
+
+.boxes {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.boxes div {
+  background-color: #9cb5e2;
+  width: 150px;
+  border-radius: 10px;
+  box-shadow: #9cb5e2 1.95px 1.95px 2.6px;
+}
+
+.charts {
+  display: grid;
+  grid-template-columns: 50% 15% 25% 10%;
+  margin-top: 5%;
+}
+
+.records {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.records h2 {
+  margin-bottom: 30px;
+}
+
+#setDays {
+  width: 520px;
+  margin: 25px;
+  padding: 10px;
+  border: 2px solid #5863a1;
+  border-radius: 4px;
+}
+
+#setDays:active {
+  border: 2px solid black;
+}

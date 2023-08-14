@@ -13,6 +13,7 @@ const Home = () => {
             <IconButton
               imgLink="https://cdn.onlinewebfonts.com/svg/img_233159.svg"
               title="DashBoard"
+              link="dashboard"
             />
             <IconButton
               imgLink="https://cdn.onlinewebfonts.com/svg/img_549436.png"
@@ -44,6 +45,7 @@ const Home = () => {
             <IconButton
               imgLink="https://cdn.onlinewebfonts.com/svg/img_235198.png"
               title="Salary"
+              link="salary"
             />
             <IconButton
               imgLink="https://cdn.onlinewebfonts.com/svg/img_129646.png"
