@@ -70,7 +70,6 @@
 }
 
 .table button:hover {
-  cursor: pointer;
   background-color: rgb(30, 55, 77);
   color: white;
 }
