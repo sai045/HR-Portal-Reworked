@@ -31,7 +31,16 @@ app.use(
   require("./Routes/complaintRoutes")
 );
 app.use("/api/leave", authenticateToken, require("./Routes/leaveRoutes"));
-app.use("/api/relocation", authenticateToken, require("./Routes/relocationRoutes"));
+app.use(
+  "/api/relocation",
+  authenticateToken,
+  require("./Routes/relocationRoutes")
+);
+app.use(
+  "/api/announcement",
+  authenticateToken,
+  require("./Routes/announcementRoutes")
+);
 app.use("/protected", authenticateToken, (req, res) => {
   res.json({ message: "This is a protected route", user: req.user });
 });
