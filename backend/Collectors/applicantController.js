@@ -1,0 +1,108 @@
+const Applicant = require("../Models/Applicant");
+
+const getAllApplicants = async (req, res, next) => {
+  try {
+    const applicants = await Applicant.find().exec();
+    res.status(200).json({ applicants });
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
+
+const getApplicant = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const applicant = await Applicant.findById(id).exec();
+    if (!applicant) {
+      res.status(404).json({ message: "Applicant not found" });
+      return;
+    }
+    res.status(200).json({ applicant });
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
+
+const createApplicant = async (req, res, next) => {
+  const {
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    positionAppliedFor,
+    applicationDate,
+    resume,
+  } = req.body;
+
+  const newApplicant = new Applicant({
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    positionAppliedFor,
+    applicationDate,
+    resume,
+  });
+
+  try {
+    await newApplicant.save();
+    res.status(200).json({ message: "Applicant Saved" });
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
+
+const deleteApplicant = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const applicant = await Applicant.findById(id).exec();
+    if (!applicant) {
+      res.status(404).json({ message: "Applicant not found" });
+      return;
+    }
+    await Applicant.deleteOne({ _id: id });
+    res.status(200).json({ message: "Applicant Deleted" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err });
+  }
+};
+
+const scheduleApplicant = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const applicant = await Applicant.findById(id).exec();
+    function getRandomDateTime() {
+      const baseDate = new Date();
+      baseDate.setDate(baseDate.getDate() + 1 + Math.floor(Math.random() * 5)); // Random day between tomorrow and 5 days from today
+      baseDate.setHours(9 + Math.floor(Math.random() * 8)); // Random hour between 9 AM and 5 PM
+      baseDate.setMinutes(Math.floor(Math.random() * 2) * 30); // Either 0 or 30
+      baseDate.setSeconds(0); // Set seconds to 00
+
+      return baseDate;
+    }
+    applicant.schedule = getRandomDateTime();
+    await applicant.save();
+    res.status(200).json({ message: "Applicant Scheduled" });
+  } catch (err) {
+    res.status(500).status({ error: err });
+  }
+};
+
+const getAllScheduledApplicants = async (req, res, next) => {
+  const fieldName = "schedule";
+  const query = { [fieldName]: { $ne: null } };
+  try {
+    const scheduledApplicants = await Applicant.find(query).exec();
+    res.status(200).json({ scheduledApplicants });
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
+
+exports.getAllApplicants = getAllApplicants;
+exports.getApplicant = getApplicant;
+exports.createApplicant = createApplicant;
+exports.deleteApplicant = deleteApplicant;
+exports.scheduleApplicant = scheduleApplicant;
+exports.getAllScheduledApplicants = getAllScheduledApplicants;
