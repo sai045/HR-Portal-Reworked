@@ -11,7 +11,7 @@ const employeeSchema = mongoose.Schema({
   address: {
     street: { type: String },
     city: { type: String },
-    address: { type: String },
+    state: { type: String },
     zipCode: { type: Number },
   },
   leaveRequests: [

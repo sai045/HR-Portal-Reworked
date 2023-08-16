@@ -74,10 +74,10 @@ const scheduleApplicant = async (req, res, next) => {
     const applicant = await Applicant.findById(id).exec();
     function getRandomDateTime() {
       const baseDate = new Date();
-      baseDate.setDate(baseDate.getDate() + 1 + Math.floor(Math.random() * 5)); // Random day between tomorrow and 5 days from today
-      baseDate.setHours(9 + Math.floor(Math.random() * 8)); // Random hour between 9 AM and 5 PM
-      baseDate.setMinutes(Math.floor(Math.random() * 2) * 30); // Either 0 or 30
-      baseDate.setSeconds(0); // Set seconds to 00
+      baseDate.setDate(baseDate.getDate() + 1 + Math.floor(Math.random() * 5)); 
+      baseDate.setHours(9 + Math.floor(Math.random() * 8));
+      baseDate.setMinutes(Math.floor(Math.random() * 2) * 30);
+      baseDate.setSeconds(0); 
 
       return baseDate;
     }

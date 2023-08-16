@@ -19,6 +19,19 @@ const authenticateToken = require("./Middleware/auth");
 
 // routes
 app.use("/api/auth", require("./Routes/authRoutes.js"));
+app.use(
+  "/api/applicant",
+  authenticateToken,
+  require("./Routes/applicantRoutes")
+);
+app.use("/api/employee", authenticateToken, require("./Routes/employeeRoutes"));
+app.use(
+  "/api/complaint",
+  authenticateToken,
+  require("./Routes/complaintRoutes")
+);
+app.use("/api/leave", authenticateToken, require("./Routes/leaveRoutes"));
+app.use("/api/relocation", authenticateToken, require("./Routes/relocationRoutes"));
 app.use("/protected", authenticateToken, (req, res) => {
   res.json({ message: "This is a protected route", user: req.user });
 });

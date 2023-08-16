@@ -10,7 +10,7 @@ const relocationSchema = mongoose.Schema({
   newAddress: {
     street: { type: String },
     city: { type: String },
-    address: { type: String },
+    state: { type: String },
     zipCode: { type: Number },
   },
   reason: { type: String },
