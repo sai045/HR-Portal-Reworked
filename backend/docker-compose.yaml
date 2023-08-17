@@ -12,7 +12,7 @@ services:
       - mongo_data:/data/db
 
   my-app:
-    image: hr
+    image: hr:latest
     container_name: hr
     ports:
       - 5000:5000

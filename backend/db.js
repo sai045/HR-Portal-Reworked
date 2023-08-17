@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const connectDB = async () => {
   try {
-    await mongoose.connect("mongodb://klaus:klaus123@mongo:27017", {
+    await mongoose.connect(process.env.MONGOLOCAL, {
       autoIndex: true
     });
     console.log("MongoDB Connected");
