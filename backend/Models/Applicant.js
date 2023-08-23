@@ -8,6 +8,7 @@ const applicationSchema = mongoose.Schema({
   positionAppliedFor: { type: String, required: true },
   applicationDate: { type: Date, required: true },
   resume: { type: String, required: true },
+  schedule: {type: String, default:""}
 });
 
 module.exports = mongoose.model("Applicant", applicationSchema);

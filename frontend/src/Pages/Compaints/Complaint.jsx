@@ -1,13 +1,14 @@
 import React from "react";
 
 const Complaint = (props) => {
-  const { name, department, complaint } = props;
+  const { employeeID, category, description, status } = props;
   return (
     <div className="complaint">
       <ul>
-        <li>Name: {name}</li>
-        <li>Department: {department}</li>
-        <li>Complaint: {complaint}</li>
+        <li>Employee ID: {employeeID}</li>
+        <li>ategory: {category}</li>
+        <li>Description: {description}</li>
+        <li>Status: {status}</li>
         <li>
           <button>Delete</button>
         </li>

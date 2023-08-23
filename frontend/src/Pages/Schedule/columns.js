@@ -1,16 +1,20 @@
 const columns = [
-    {
-        Header: "Name",
-        accessor: "name",
-    },
-    {
-        Header: "Date",
-        accessor: "date",
-    },
-    {
-        Header: "Time",
-        accessor: "time",
-    },
+  {
+    Header: "First Name",
+    accessor: "firstName",
+  },
+  {
+    Header: "Last Name",
+    accessor: "lastName",
+  },
+  {
+    Header: "Position",
+    accessor: "positionAppliedFor",
+  },
+  {
+    Header: "Date",
+    accessor: "schedule",
+  },
 ];
 
-module.exports = columns
+module.exports = columns;

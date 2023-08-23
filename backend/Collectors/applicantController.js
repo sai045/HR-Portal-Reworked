@@ -3,7 +3,8 @@ const Applicant = require("../Models/Applicant");
 const getAllApplicants = async (req, res, next) => {
   try {
     const applicants = await Applicant.find().exec();
-    res.status(200).json({ applicants });
+    a = applicants.filter(a => a.schedule == "");
+    res.status(200).json({ applicants: a });
   } catch (err) {
     res.status(500).json({ error: err });
   }
@@ -41,7 +42,7 @@ const createApplicant = async (req, res, next) => {
     phoneNumber,
     positionAppliedFor,
     applicationDate,
-    resume,
+    resume
   });
 
   try {
@@ -90,11 +91,11 @@ const scheduleApplicant = async (req, res, next) => {
 };
 
 const getAllScheduledApplicants = async (req, res, next) => {
-  const fieldName = "schedule";
-  const query = { [fieldName]: { $ne: null } };
+
   try {
-    const scheduledApplicants = await Applicant.find(query).exec();
-    res.status(200).json({ scheduledApplicants });
+    const scheduledApplicants = await Applicant.find().exec();
+    a = scheduledApplicants.filter(a => a.schedule !== "");
+    res.status(200).json({ scheduledApplicants: a });
   } catch (err) {
     res.status(500).json({ error: err });
   }

@@ -1,15 +1,27 @@
 export const Columns = [
   {
-    Header: "Name",
-    accessor: "name",
+    Header: "First Name",
+    accessor: "firstName",
   },
   {
-    Header: "Qualification",
-    accessor: "qualification",
+    Header: "Last Name",
+    accessor: "lastName",
   },
   {
-    Header: "Department",
-    accessor: "department",
+    Header: "Email",
+    accessor: "email",
+  },
+  {
+    Header: "Phone Number",
+    accessor: "phoneNumber",
+  },
+  {
+    Header: "Resume",
+    accessor: "resume",
+  },
+  {
+    Header: "Position",
+    accessor: "positionAppliedFor",
   },
   {
     Header: "Schedule",
