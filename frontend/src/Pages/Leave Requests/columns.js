@@ -1,16 +1,23 @@
-const columns = [
-    {
-        Header: "Employee ID",
-        accessor: "id",
-    },
-    {
-        Header: "From",
-        accessor: "from",
-    },
-    {
-        Header: "To",
-        accessor: "to",
-    }
+export const columns = [
+  {
+    Header: "Employee ID",
+    accessor: "employeeID",
+  },
+  {
+    Header: "From",
+    accessor: "startDate",
+  },
+  {
+    Header: "To",
+    accessor: "endDate",
+  },
+  {
+    Header: "Reason",
+    accessor: "reason",
+  },
+  {
+    Header: "Confirm",
+    accessor: "id",
+    Cell: ({ cell }) => <button>Confirm</button>,
+  },
 ];
-
-module.exports = columns
