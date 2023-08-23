@@ -6,7 +6,7 @@ const Navbar = () => {
   var username = "Sai Varshith";
   return (
     <nav className="navbar">
-      <Link to="/">
+      <Link to="/home">
         <img
           src="https://res.cloudinary.com/dxcnrukd1/image/upload/f_auto,q_auto/v1/Hr%20Portal/c9qnnh9rwaje9kq6nfgn"
           alt="Logo Image"

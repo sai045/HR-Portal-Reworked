@@ -10,13 +10,17 @@ import Complaints from "./Pages/Compaints/Complaints";
 import Details from "./Pages/Details/Details";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import Salary from "./Pages/Salary/Salary";
+import Login from "./Pages/Login/Login";
+import Signup from "./Pages/Signup/Signup";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/applicant" element={<Applicant />} />
           <Route path="/employee" element={<Employee />} />
           <Route path="/leave" element={<Leave />} />

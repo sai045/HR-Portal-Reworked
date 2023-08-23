@@ -1,0 +1,61 @@
+.login {
+  box-shadow: #505ca0 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  height: 75vh;
+  width: 80vw;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.loginForm {
+  width: 50%;
+  height: 100%;
+}
+
+.loginForm div {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 50%;
+  margin: auto;
+  margin-top: 25%;
+  background-color: #bdc4eb;
+  padding: 10%;
+  border-radius: 10px;
+}
+
+.loginForm svg {
+  margin: 0 auto;
+}
+
+.loginForm form {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 20px auto;
+}
+
+.loginForm input {
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px 0;
+  border: 2px solid #5863a1;
+}
+
+.loginForm button {
+  width: 30%;
+  padding: 5%;
+  margin: 10px auto;
+  background-color: #5863a1;
+  border-radius: 10px;
+  border: none;
+}
+
+.photo img {
+  height: 80%;
+  width: 80%;
+}
