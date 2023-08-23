@@ -6,7 +6,6 @@ import Navbar from "../../Components/Navbar";
 const Employee = () => {
   const [data, setData] = useState([]);
   const sendRequest = async () => {
-    console.log("Testing")
     try {
       const response = await fetch(
         process.env.REACT_APP_DOMIAN + "api/employee",
@@ -20,7 +19,7 @@ const Employee = () => {
       const responseData = await response.json();
       console.log(responseData);
       setData(responseData.employees);
-    } catch (err) {}
+    } catch (err) {console.log(err)}
   };
   useEffect(() => {
     sendRequest();
