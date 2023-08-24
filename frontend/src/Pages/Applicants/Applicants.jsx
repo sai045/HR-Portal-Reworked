@@ -3,7 +3,6 @@ import { Columns } from "./columns";
 import Table from "../../Components/Table";
 import Navbar from "../../Components/Navbar";
 import Modal from "../../Components/Modal";
-import "./Applicants.css";
 import NewApplicant from "./NewApplicant";
 
 const Applicant = () => {
