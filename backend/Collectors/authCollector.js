@@ -172,7 +172,6 @@ const resetpassword = async (req, res, next) => {
       } else {
         user.password = hash;
         await user.save();
-        console.log(user.password);
       }
     });
     res.json({ user });
@@ -181,7 +180,22 @@ const resetpassword = async (req, res, next) => {
   }
 };
 
+const getUserDetails = async (req, res, next) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email }).exec();
+    if (!user) {
+      res.status(404).json({ message: "User Not Found" });
+      return;
+    }
+    res.status(200).json({ user });
+  } catch (err) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 exports.signup = signup;
 exports.login = login;
 exports.forgotpassword = forgotpassword;
-exports.resetpassword = resetpassword
+exports.resetpassword = resetpassword;
+exports.getUserDetails = getUserDetails

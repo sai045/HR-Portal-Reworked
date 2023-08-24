@@ -9,8 +9,17 @@ const Navbar = () => {
   const { decodedToken, isExpired } = useJwt(jwtToken);
   const [username, setUsername] = useState("");
   useEffect(() => {
-    if (decodedToken != null) {
-      setUsername(decodedToken.name);
+    if (jwtToken == null) {
+      alert("Please Login Again");
+      logout();
+    } else {
+      if (decodedToken != null) {
+        setUsername(decodedToken.name);
+      }
+      if (isExpired) {
+        alert("Please Login Again");
+        logout();
+      }
     }
   }, [decodedToken]);
 

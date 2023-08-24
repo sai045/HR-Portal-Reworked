@@ -13,5 +13,6 @@ router.post("/signup", authCollector.signup);
 router.post("/login", authCollector.login);
 router.post("/forgotPassword", authCollector.forgotpassword);
 router.post("/resetpassword", authCollector.resetpassword);
+router.post("/getUserDetails", authCollector.getUserDetails)
 
 module.exports = router;

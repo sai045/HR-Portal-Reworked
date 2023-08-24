@@ -1,8 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Details.css";
 import Navbar from "../../Components/Navbar";
+import { useJwt } from "react-jwt";
 
 const Details = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [location, setLocation] = useState("");
+  const { decodedToken, isExpired } = useJwt(
+    localStorage.getItem("Authorization")
+  );
+  const sendRequest = async () => {
+    if (decodedToken != undefined) {
+      const email = decodedToken.email;
+      const response = await fetch(
+        process.env.REACT_APP_DOMIAN + "api/auth/getUserDetails",
+        {
+          method: "POST",
+          headers: {
+            Authorization: localStorage.getItem("Authorization"),
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+          }),
+        }
+      );
+      const responseData = await response.json();
+      console.log(responseData);
+      setName(responseData.user.firstName + " " + responseData.user.lastName);
+      setEmail(responseData.user.email);
+      setPhoneNumber(responseData.user.phoneNumber);
+      setLocation(responseData.user.address.city);
+    }
+  };
+  useEffect(() => {
+    sendRequest();
+  }, [decodedToken]);
   return (
     <>
       <Navbar />
@@ -25,16 +60,16 @@ const Details = () => {
           </div>
           <div>
             <div className="detail">
-              <p>Sai Varshith Aalasyam</p>
+              <p>{name}</p>
             </div>
             <div className="detail">
-              <p>saivarshith3041@gmail.com</p>
+              <p>{email}</p>
             </div>
             <div className="detail">
-              <p>9392522043</p>
+              <p>{phoneNumber}</p>
             </div>
             <div className="detail">
-              <p>Khammam</p>
+              <p>{location}</p>
             </div>
           </div>
         </div>
