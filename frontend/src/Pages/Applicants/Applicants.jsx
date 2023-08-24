@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Columns } from "./columns";
 import Table from "../../Components/Table";
 import Navbar from "../../Components/Navbar";
+import Modal from "../../Components/Modal";
+import "./Applicants.css";
+import NewApplicant from "./NewApplicant";
 
 const Applicant = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState([]);
   const sendRequest = async () => {
     try {
@@ -16,6 +20,12 @@ const Applicant = () => {
         }
       );
       const responseData = await response.json();
+      if (responseData.message == "Forbidden") {
+        alert(
+          "The operation you are trying is unauthorized. Please Login Again"
+        );
+        window.location.href = "/";
+      }
       setData(responseData.applicants);
     } catch (err) {}
   };
@@ -24,9 +34,25 @@ const Applicant = () => {
   }, []);
   return (
     <>
+      <Modal
+        title="Add Applicant Form"
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false);
+        }}
+      >
+        <NewApplicant setIsOpen={setIsOpen} />
+      </Modal>
       <Navbar />
       <h1>Applicants</h1>
-      <Table Columns={Columns} data={data} button={"Applicant"} />
+      <Table
+        Columns={Columns}
+        data={data}
+        button={"Applicant"}
+        onClick={() => {
+          setIsOpen(true);
+        }}
+      />
     </>
   );
 };

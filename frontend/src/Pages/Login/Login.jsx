@@ -1,7 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
 
 const Login = () => {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const onClick = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        process.env.REACT_APP_DOMIAN + "api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }
+      );
+      const responseData = await response.json();
+      if (!response.ok) {
+        console.log("Login Failed");
+      }
+      console.log(responseData)
+      localStorage.setItem("Authorization", responseData.token);
+      window.location.href = "home"
+    } catch (err) {}
+  };
   return (
     <>
       <div className="login">
@@ -19,9 +46,25 @@ const Login = () => {
               <path d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.373 5.373 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2H2Z" />
             </svg>
             <form>
-              <input type="email" placeholder="Email" />
-              <input type="password" placeholder="Password" />
-              <button>Login</button>
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button
+                onClick={(e) => {
+                  onClick(e);
+                }}
+              >
+                Login
+              </button>
             </form>
             <a href="/signup">Sign Up here</a>
           </div>

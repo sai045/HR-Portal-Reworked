@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { useTable, useGlobalFilter, usePagination } from "react-table";
 import "./Table.css";
 
-const Employee = ({ Columns, data, button }) => {
+const Employee = ({ Columns, data, button, onClick }) => {
   const columns = useMemo(() => Columns, []);
   const {
     getTableProps,
@@ -46,6 +46,7 @@ const Employee = ({ Columns, data, button }) => {
               <img
                 src="https://pic.onlinewebfonts.com/thumbnails/icons_571011.svg"
                 alt=""
+                onClick={onClick}
               />
               <p className="new">New {button}</p>
             </>
