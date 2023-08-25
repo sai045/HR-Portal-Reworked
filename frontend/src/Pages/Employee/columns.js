@@ -21,7 +21,15 @@ export const columns = [
   },
   {
     Header: "Details",
-    accessor: "id",
-    Cell: ({ cell }) => <button>More Details</button>,
+    accessor: "_id",
+    Cell: ({ value }) => (
+      <button
+        onClick={() => {
+          window.location.href = `/employee/${value}`;
+        }}
+      >
+        More Details
+      </button>
+    ),
   },
 ];

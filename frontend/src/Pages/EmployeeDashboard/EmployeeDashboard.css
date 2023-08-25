@@ -1,0 +1,26 @@
+#employeeDetail {
+  margin-top: 2%;
+}
+
+.employeeTables {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  width: 80%;
+  margin: 50px auto;
+}
+
+.employeeTables td {
+  height: 10px;
+}
+
+#employeeTable {
+  width: 100%;
+}
+
+.employeeDelete {
+  padding: 12px 20px;
+  border: none;
+  background-color: rgb(255, 73, 73);
+  color: white;
+  border-radius: 2px;
+}

@@ -12,6 +12,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import Salary from "./Pages/Salary/Salary";
 import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Signup/Signup";
+import EmployeeDashboard from "./Pages/EmployeeDashboard/EmployeeDashboard";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/applicant" element={<Applicant />} />
           <Route path="/employee" element={<Employee />} />
+          <Route path="/employee/:id" element={<EmployeeDashboard />}/>
           <Route path="/leave" element={<Leave />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/travel" element={<Travel />} />
