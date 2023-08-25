@@ -1,4 +1,5 @@
 const express = require("express");
+const { check } = require("express-validator");
 
 const router = express.Router();
 const applicantController = require("../Collectors/applicantController");
@@ -11,9 +12,24 @@ const applicantController = require("../Collectors/applicantController");
 // 6. Get all Scheduled Applicants
 router.get("/", applicantController.getAllApplicants);
 router.get("/:id", applicantController.getApplicant);
-router.post("/", applicantController.createApplicant);
+router.post(
+  "/",
+  [
+    check("firstName").not().isEmpty(),
+    check("lastName").not().isEmpty(),
+    check("email").not().isEmpty(),
+    check("email").isEmail(),
+    check("phoneNumber").not().isEmpty(),
+    check("phoneNumber").isNumeric(),
+    check("positionAppliedFor").not().isEmpty(),
+    check("applicationDate").not().isEmpty(),
+    check("applicationDate").isDate(),
+    check("resume").not().isEmpty(),
+  ],
+  applicantController.createApplicant
+);
 router.delete("/:id", applicantController.deleteApplicant);
 router.patch("/schedule/:id", applicantController.scheduleApplicant);
-router.get("/get/schedule", applicantController.getAllScheduledApplicants)
+router.get("/get/schedule", applicantController.getAllScheduledApplicants);
 
 module.exports = router;

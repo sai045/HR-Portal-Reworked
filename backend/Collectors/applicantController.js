@@ -1,9 +1,10 @@
 const Applicant = require("../Models/Applicant");
+const { validationResult } = require("express-validator");
 
 const getAllApplicants = async (req, res, next) => {
   try {
     const applicants = await Applicant.find().exec();
-    a = applicants.filter(a => a.schedule == "");
+    a = applicants.filter((a) => a.schedule == "");
     res.status(200).json({ applicants: a });
   } catch (err) {
     res.status(500).json({ error: err });
@@ -25,6 +26,11 @@ const getApplicant = async (req, res, next) => {
 };
 
 const createApplicant = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.status(404).json({ message: "Invalid Input" });
+    return;
+  }
   const {
     firstName,
     lastName,
@@ -42,7 +48,7 @@ const createApplicant = async (req, res, next) => {
     phoneNumber,
     positionAppliedFor,
     applicationDate,
-    resume
+    resume,
   });
 
   try {
@@ -75,10 +81,10 @@ const scheduleApplicant = async (req, res, next) => {
     const applicant = await Applicant.findById(id).exec();
     function getRandomDateTime() {
       const baseDate = new Date();
-      baseDate.setDate(baseDate.getDate() + 1 + Math.floor(Math.random() * 5)); 
+      baseDate.setDate(baseDate.getDate() + 1 + Math.floor(Math.random() * 5));
       baseDate.setHours(9 + Math.floor(Math.random() * 8));
       baseDate.setMinutes(Math.floor(Math.random() * 2) * 30);
-      baseDate.setSeconds(0); 
+      baseDate.setSeconds(0);
 
       return baseDate;
     }
@@ -91,10 +97,9 @@ const scheduleApplicant = async (req, res, next) => {
 };
 
 const getAllScheduledApplicants = async (req, res, next) => {
-
   try {
     const scheduledApplicants = await Applicant.find().exec();
-    a = scheduledApplicants.filter(a => a.schedule !== "");
+    a = scheduledApplicants.filter((a) => a.schedule !== "");
     res.status(200).json({ scheduledApplicants: a });
   } catch (err) {
     res.status(500).json({ error: err });

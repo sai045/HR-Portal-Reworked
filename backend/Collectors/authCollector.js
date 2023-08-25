@@ -2,8 +2,15 @@ const User = require("../Models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const { validationResult } = require("express-validator");
 
 const signup = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const errorMessages = errors.array().map((error) => error.msg); // Extract messages
+    return res.status(400).json({ errors: errorMessages });
+  }
+
   const {
     firstName,
     lastName,
@@ -15,6 +22,16 @@ const signup = async (req, res, next) => {
     zipCode,
     password,
   } = req.body;
+
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+
+  if (!passwordRegex.test(password)) {
+    return res.status(400).json({
+      errors: [
+        "Password should contain 1 Capital, 1 Numeric, 1 Lowercase, minimum 8 characters.",
+      ],
+    });
+  }
   bcrypt.hash(password, 10, async (err, hash) => {
     if (err) {
       return res.status(500).json({ error: err });
@@ -198,4 +215,4 @@ exports.signup = signup;
 exports.login = login;
 exports.forgotpassword = forgotpassword;
 exports.resetpassword = resetpassword;
-exports.getUserDetails = getUserDetails
+exports.getUserDetails = getUserDetails;
