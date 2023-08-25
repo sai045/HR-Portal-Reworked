@@ -1,4 +1,5 @@
 const Complaint = require("../Models/Complaint");
+const Employee = require("../Models/Employee");
 
 const getAllComplaints = async (req, res, next) => {
   try {
@@ -19,6 +20,15 @@ const createComplaint = async (req, res, next) => {
     status: "Filed",
   });
   try {
+    employee = await Employee.findById(employeeID).exec();
+    if (!employee) {
+      res.status(404).json({ message: "Employee Not Found" });
+      return;
+    }
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+  try {
     await newComplaint.save();
     res.status(200).json({ message: "Complaint Saved" });
   } catch (err) {
@@ -34,10 +44,10 @@ const deleteComplaint = async (req, res, next) => {
       res.status(404).json({ message: "Complaint Not found" });
       return;
     }
-    await Complaint.deleteOne({_id:id}).exec()
+    await Complaint.deleteOne({ _id: id }).exec();
     res.status(200).json({ message: "Complaint Deleted" });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.status(500).json({ error: err });
   }
 };

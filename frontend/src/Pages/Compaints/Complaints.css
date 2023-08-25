@@ -30,3 +30,11 @@
   border-radius: 2px;
   margin-top: 8px;
 }
+
+.newComplaints {
+  position: absolute;
+  top: 15%;
+  left: 80%;
+  padding: 10px;
+  background-color: #198754;
+}
