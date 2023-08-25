@@ -4,8 +4,10 @@ import Columns from "./columns";
 import Table from "../../Components/Table";
 
 const Schedule = () => {
+  const [loading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const sendRequest = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         process.env.REACT_APP_DOMIAN + "api/applicant/get/schedule",
@@ -17,7 +19,7 @@ const Schedule = () => {
       );
       const responseData = await response.json();
       setData(responseData.scheduledApplicants);
-      console.log(responseData.scheduledApplicants);
+      setIsLoading(false);
     } catch (err) {}
   };
   useEffect(() => {
@@ -25,9 +27,18 @@ const Schedule = () => {
   }, []);
   return (
     <>
-      <Navbar />
-      <h1>Schedule</h1>
-      <Table Columns={Columns} data={data} />
+      {loading && (
+        <div className="loader-container">
+          <div className="spinner"></div>
+        </div>
+      )}
+      {!loading && (
+        <>
+          <Navbar />
+          <h1>Schedule</h1>
+          <Table Columns={Columns} data={data} />
+        </>
+      )}
     </>
   );
 };

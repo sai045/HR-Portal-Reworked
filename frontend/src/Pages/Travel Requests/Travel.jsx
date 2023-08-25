@@ -6,9 +6,11 @@ import Modal from "../../Components/Modal";
 import NewTravel from "./NewTravel";
 
 const Travel = () => {
+  const [loading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState([]);
   const sendRequest = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         process.env.REACT_APP_DOMIAN + "api/relocation",
@@ -26,6 +28,7 @@ const Travel = () => {
         window.location.href = "/";
       }
       setData(responseData.relocations);
+      setIsLoading(false);
     } catch (err) {}
   };
   useEffect(() => {
@@ -33,25 +36,34 @@ const Travel = () => {
   }, []);
   return (
     <>
-      <Modal
-        title="Add Relocation Request Form"
-        isOpen={isOpen}
-        onClose={() => {
-          setIsOpen(false);
-        }}
-      >
-        <NewTravel setIsOpen={setIsOpen} />
-      </Modal>
-      <Navbar />
-      <h1>Relocation Requests</h1>
-      <Table
-        Columns={columns}
-        data={data}
-        button={"Travel"}
-        onClick={() => {
-          setIsOpen(true);
-        }}
-      />
+      {loading && (
+        <div className="loader-container">
+          <div className="spinner"></div>
+        </div>
+      )}
+      {!loading && (
+        <>
+          <Modal
+            title="Add Relocation Request Form"
+            isOpen={isOpen}
+            onClose={() => {
+              setIsOpen(false);
+            }}
+          >
+            <NewTravel setIsOpen={setIsOpen} />
+          </Modal>
+          <Navbar />
+          <h1>Relocation Requests</h1>
+          <Table
+            Columns={columns}
+            data={data}
+            button={"Travel"}
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          />
+        </>
+      )}
     </>
   );
 };

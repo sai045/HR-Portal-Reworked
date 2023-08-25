@@ -6,9 +6,11 @@ import Modal from "../../Components/Modal";
 import NewLeave from "./NewLeave";
 
 const Leave = () => {
+  const [loading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState([]);
   const sendRequest = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(process.env.REACT_APP_DOMIAN + "api/leave", {
         headers: {
@@ -16,8 +18,8 @@ const Leave = () => {
         },
       });
       const responseData = await response.json();
-      console.log(responseData);
       setData(responseData.leaves);
+      setIsLoading(false);
     } catch (err) {}
   };
   useEffect(() => {
@@ -25,25 +27,34 @@ const Leave = () => {
   }, []);
   return (
     <>
-      <Modal
-        title="Add Relocation Request Form"
-        isOpen={isOpen}
-        onClose={() => {
-          setIsOpen(false);
-        }}
-      >
-        <NewLeave setIsOpen={setIsOpen} />
-      </Modal>
-      <Navbar />
-      <h1>Leave Requests</h1>
-      <Table
-        Columns={columns}
-        data={data}
-        button={"Leave"}
-        onClick={() => {
-          setIsOpen(true);
-        }}
-      />
+      {loading && (
+        <div className="loader-container">
+          <div className="spinner"></div>
+        </div>
+      )}
+      {!loading && (
+        <>
+          <Modal
+            title="Add Relocation Request Form"
+            isOpen={isOpen}
+            onClose={() => {
+              setIsOpen(false);
+            }}
+          >
+            <NewLeave setIsOpen={setIsOpen} />
+          </Modal>
+          <Navbar />
+          <h1>Leave Requests</h1>
+          <Table
+            Columns={columns}
+            data={data}
+            button={"Leave"}
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          />
+        </>
+      )}
     </>
   );
 };

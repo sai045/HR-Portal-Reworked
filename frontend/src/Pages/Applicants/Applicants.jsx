@@ -6,9 +6,11 @@ import Modal from "../../Components/Modal";
 import NewApplicant from "./NewApplicant";
 
 const Applicant = () => {
+  const [loading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState([]);
   const sendRequest = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         process.env.REACT_APP_DOMIAN + "api/applicant",
@@ -26,6 +28,7 @@ const Applicant = () => {
         window.location.href = "/";
       }
       setData(responseData.applicants);
+      setIsLoading(false);
     } catch (err) {}
   };
   useEffect(() => {
@@ -33,25 +36,34 @@ const Applicant = () => {
   }, []);
   return (
     <>
-      <Modal
-        title="Add Applicant Form"
-        isOpen={isOpen}
-        onClose={() => {
-          setIsOpen(false);
-        }}
-      >
-        <NewApplicant setIsOpen={setIsOpen} />
-      </Modal>
-      <Navbar />
-      <h1>Applicants</h1>
-      <Table
-        Columns={Columns}
-        data={data}
-        button={"Applicant"}
-        onClick={() => {
-          setIsOpen(true);
-        }}
-      />
+      {loading && (
+        <div className="loader-container">
+          <div className="spinner"></div>
+        </div>
+      )}
+      {!loading && (
+        <>
+          <Modal
+            title="Add Applicant Form"
+            isOpen={isOpen}
+            onClose={() => {
+              setIsOpen(false);
+            }}
+          >
+            <NewApplicant setIsOpen={setIsOpen} />
+          </Modal>
+          <Navbar />
+          <h1>Applicants</h1>
+          <Table
+            Columns={Columns}
+            data={data}
+            button={"Applicant"}
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          />
+        </>
+      )}
     </>
   );
 };

@@ -6,6 +6,7 @@ import EmployeeDetails from "./EmployeeDetails";
 import EmployeeTable from "./EmployeeTable";
 
 const EmployeeDashboard = () => {
+  const [loading, setIsLoading] = useState(false);
   const { id } = useParams();
   const [employee, setEmployee] = useState({
     address: {
@@ -26,6 +27,7 @@ const EmployeeDashboard = () => {
     relocationRequests: [],
   });
   const sendRequest = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         process.env.REACT_APP_DOMIAN + "api/employee/" + id,
@@ -37,6 +39,7 @@ const EmployeeDashboard = () => {
       );
       const responseData = await response.json();
       setEmployee(responseData.employee);
+      setIsLoading(false);
     } catch (err) {}
   };
   const deleteRequest = async () => {
@@ -60,17 +63,31 @@ const EmployeeDashboard = () => {
   }, []);
   return (
     <>
-      <Navbar />
-      <EmployeeDetails employee={employee} />
-      <div className="employeeTables">
-        <EmployeeTable data={employee.leaveRequests} title={"Leave Requests"} />
-        <EmployeeTable
-          data={employee.relocationRequests}
-          title={"Relocation Requests"}
-        />
-        <EmployeeTable data={employee.complaints} title={"Complaints"} />
-      </div>
-      <button className="employeeDelete" onClick={deleteRequest}>Delete Employee</button>
+      {loading && (
+        <div className="loader-container">
+          <div className="spinner"></div>
+        </div>
+      )}
+      {!loading && (
+        <>
+          <Navbar />
+          <EmployeeDetails employee={employee} />
+          <div className="employeeTables">
+            <EmployeeTable
+              data={employee.leaveRequests}
+              title={"Leave Requests"}
+            />
+            <EmployeeTable
+              data={employee.relocationRequests}
+              title={"Relocation Requests"}
+            />
+            <EmployeeTable data={employee.complaints} title={"Complaints"} />
+          </div>
+          <button className="employeeDelete" onClick={deleteRequest}>
+            Delete Employee
+          </button>
+        </>
+      )}
     </>
   );
 };
