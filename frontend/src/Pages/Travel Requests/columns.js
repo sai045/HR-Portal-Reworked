@@ -1,3 +1,24 @@
+const Confirm = async (id) => {
+  try {
+    const response = await fetch(
+      process.env.REACT_APP_DOMIAN + "api/relocation/" + id,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: localStorage.getItem("Authorization"),
+        },
+      }
+    );
+    const responseData = await response.json();
+    if (responseData.message == "Forbidden") {
+      alert("Your session expired. Please login again");
+      window.location.href = "/";
+    } else {
+      window.location.href = "/travel";
+    }
+  } catch (err) {}
+};
+
 export const columns = [
   {
     Header: "Employee ID",
@@ -25,7 +46,15 @@ export const columns = [
   },
   {
     Header: "Confirm",
-    accessor: "id",
-    Cell: ({ cell }) => <button>Confirm</button>,
+    accessor: "_id",
+    Cell: ({ value }) => (
+      <button
+        onClick={() => {
+          Confirm(value);
+        }}
+      >
+        Confirm
+      </button>
+    ),
   },
 ];
