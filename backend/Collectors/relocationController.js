@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 
 const getAllRelocations = async (req, res, next) => {
   try {
-    const relocations = await Relocation.find().exec();
+    var relocations = await Relocation.find().exec();
+    relocations = relocations.filter((r) => r.status == false)
     res.status(200).json({ relocations });
   } catch (err) {
     res.status(500).json({ error: err });

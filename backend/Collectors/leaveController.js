@@ -4,9 +4,11 @@ const mongoose = require("mongoose");
 
 const getAllLeaves = async (req, res, next) => {
   try {
-    const leaves = await Leave.find().exec();
+    var leaves = await Leave.find().exec();
+    leaves = leaves.filter((r) => r.status == false)
     res.status(200).json({ leaves });
   } catch (err) {
+    console.log(err)
     res.status(500).json({ error: err });
   }
 };

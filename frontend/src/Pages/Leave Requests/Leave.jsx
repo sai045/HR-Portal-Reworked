@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../../Components/Navbar";
 import { columns } from "./columns";
 import Table from "../../Components/Table";
+import Modal from "../../Components/Modal";
+import NewLeave from "./NewLeave";
 
 const Leave = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState([]);
   const sendRequest = async () => {
     try {
@@ -13,8 +16,8 @@ const Leave = () => {
         },
       });
       const responseData = await response.json();
+      console.log(responseData);
       setData(responseData.leaves);
-      console.log(responseData.leaves);
     } catch (err) {}
   };
   useEffect(() => {
@@ -22,9 +25,25 @@ const Leave = () => {
   }, []);
   return (
     <>
+      <Modal
+        title="Add Relocation Request Form"
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false);
+        }}
+      >
+        <NewLeave setIsOpen={setIsOpen} />
+      </Modal>
       <Navbar />
       <h1>Leave Requests</h1>
-      <Table Columns={columns} data={data} button={"Leave"} />
+      <Table
+        Columns={columns}
+        data={data}
+        button={"Leave"}
+        onClick={() => {
+          setIsOpen(true);
+        }}
+      />
     </>
   );
 };
