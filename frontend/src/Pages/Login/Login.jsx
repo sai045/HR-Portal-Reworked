@@ -24,7 +24,6 @@ const Login = () => {
       if (!response.ok) {
         console.log("Login Failed");
       }
-      console.log(responseData)
       localStorage.setItem("Authorization", responseData.token);
       window.location.href = "home"
     } catch (err) {}

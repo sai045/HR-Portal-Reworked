@@ -15,19 +15,6 @@ const NewEmployee = ({ setIsOpen }) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(
-      firstName,
-      lastName,
-      email,
-      phoneNumber,
-      position,
-      department,
-      joinDate,
-      street,
-      city,
-      state,
-      zipCode
-    );
     try {
       const response = await fetch(
         process.env.REACT_APP_DOMIAN + "api/employee",
@@ -53,7 +40,6 @@ const NewEmployee = ({ setIsOpen }) => {
         }
       );
       const responseData = await response.json();
-      console.log(responseData);
       if (responseData.message == "Forbidden") {
         alert(
           "The operation you are trying is unauthorized. Please Login Again"

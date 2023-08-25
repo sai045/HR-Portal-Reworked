@@ -23,7 +23,6 @@ const NewLeave = ({ setIsOpen }) => {
         }),
       });
       const responseData = await response.json();
-      console.log(responseData);
       if (responseData.message == "Forbidden") {
         alert(
           "The operation you are trying is unauthorized. Please Login Again"
