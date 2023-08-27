@@ -23,7 +23,7 @@ const signup = async (req, res, next) => {
     password,
   } = req.body;
 
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
   if (!passwordRegex.test(password)) {
     return res.status(400).json({

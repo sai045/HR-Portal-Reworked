@@ -9,12 +9,14 @@ const Login = () => {
   const onClick = async (e) => {
     setLoading(true);
     e.preventDefault();
+
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
       setErrors(["Enter Valid Email"]);
       setLoading(false);
       return;
     }
+
     try {
       const response = await fetch(
         process.env.REACT_APP_DOMIAN + "api/auth/login",
@@ -30,12 +32,13 @@ const Login = () => {
         }
       );
       const responseData = await response.json();
-      console.log(responseData);
+
       if (responseData.errors) {
         setErrors(responseData.errors);
         setLoading(false);
         return;
       }
+
       if (responseData.message == "Auth Sucessfull") {
         localStorage.setItem("Authorization", responseData.token);
         setLoading(false);
@@ -45,9 +48,7 @@ const Login = () => {
         setLoading(false);
       }
     } catch (err) {
-      setErrors([
-        "Server is currently unreachable. Please try again later.",
-      ]);
+      setErrors(["Server is currently unreachable. Please try again later."]);
       setLoading(false);
     }
   };
