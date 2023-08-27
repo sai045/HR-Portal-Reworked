@@ -67,11 +67,16 @@ const signup = async (req, res, next) => {
 };
 
 const login = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const errorMessages = errors.array().map((error) => error.msg); // Extract messages
+    return res.status(400).json({ errors: errorMessages });
+  }
   User.find({ email: req.body.email })
     .exec()
     .then((user) => {
       if (user.length < 1) {
-        return res.status(401).json({ message: "Auth Failed" });
+        return res.status(401).json({ message: "User Not Found" });
       }
       bcrypt.compare(req.body.password, user[0].password, (err, result) => {
         if (err) {

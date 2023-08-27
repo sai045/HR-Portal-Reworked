@@ -49,3 +49,7 @@ button:hover {
     transform: rotate(360deg);
   }
 }
+
+.errors li {
+  text-align: left;
+}
