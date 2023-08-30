@@ -20,7 +20,10 @@ const Leave = () => {
       const responseData = await response.json();
       setData(responseData.leaves);
       setIsLoading(false);
-    } catch (err) {}
+    } catch (err) {
+      alert("Server Busy. Please try again later");
+      setIsLoading(false);
+    }
   };
   useEffect(() => {
     sendRequest();

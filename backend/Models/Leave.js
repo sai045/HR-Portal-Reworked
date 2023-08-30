@@ -7,7 +7,7 @@ const leaveSchema = mongoose.Schema({
     ref: "Employee",
   },
   startDate: { type: Date, required: true },
-  endDate: { type: Date, required: true },
+  endDate: { type: Date },
   reason: { type: String },
   status: { type: Boolean, default: false },
 });

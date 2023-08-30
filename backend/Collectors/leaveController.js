@@ -1,19 +1,25 @@
 const Leave = require("../Models/Leave");
 const Employee = require("../Models/Employee");
+const { validationResult } = require("express-validator");
 const mongoose = require("mongoose");
 
 const getAllLeaves = async (req, res, next) => {
   try {
     var leaves = await Leave.find().exec();
-    leaves = leaves.filter((r) => r.status == false)
+    leaves = leaves.filter((r) => r.status == false);
     res.status(200).json({ leaves });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.status(500).json({ error: err });
   }
 };
 
 const createLeaves = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const errorMessages = errors.array().map((error) => error.msg); // Extract messages
+    return res.status(400).json({ errors: errorMessages });
+  }
   const { employeeID, startDate, endDate, reason } = req.body;
   const newLeave = new Leave({
     employeeID,

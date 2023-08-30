@@ -30,8 +30,8 @@ router.post(
       .not()
       .isEmpty()
       .withMessage("Position is Required"),
-    check("applicationDate").not().isEmpty(),
-    check("applicationDate").isDate(),
+    check("applicationDate").not().isEmpty().withMessage("Date is required"),
+    check("applicationDate").isDate().withMessage("Date must be valid"),
     check("resume").not().isEmpty().withMessage("Resume is required"),
   ],
   applicantController.createApplicant

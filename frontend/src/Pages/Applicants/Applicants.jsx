@@ -30,7 +30,10 @@ const Applicant = () => {
       }
       setData(responseData.applicants);
       setIsLoading(false);
-    } catch (err) {}
+    } catch (err) {
+      alert("Server Busy. Please try again later");
+      setIsLoading(false)
+    }
   };
   useEffect(() => {
     sendRequest();

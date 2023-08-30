@@ -24,6 +24,7 @@ router.post(
     check("phoneNumber")
       .isLength({ min: 10, max: 10 })
       .withMessage("Phone Number should contain 10 digits"),
+    check("department").not().isEmpty().withMessage("First name is required"),
   ],
   authCollector.signup
 );

@@ -1,11 +1,12 @@
 const Relocation = require("../Models/Relocation");
 const Employee = require("../Models/Employee");
+const { validationResult } = require("express-validator");
 const mongoose = require("mongoose");
 
 const getAllRelocations = async (req, res, next) => {
   try {
     var relocations = await Relocation.find().exec();
-    relocations = relocations.filter((r) => r.status == false)
+    relocations = relocations.filter((r) => r.status == false);
     res.status(200).json({ relocations });
   } catch (err) {
     res.status(500).json({ error: err });
@@ -13,6 +14,11 @@ const getAllRelocations = async (req, res, next) => {
 };
 
 const createRelocation = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const errorMessages = errors.array().map((error) => error.msg); // Extract messages
+    return res.status(400).json({ errors: errorMessages });
+  }
   const { employeeID, requestDate, street, city, state, zipCode, reason } =
     req.body;
   const newRelocation = new Relocation({

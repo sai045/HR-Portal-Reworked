@@ -1,5 +1,6 @@
 const Complaint = require("../Models/Complaint");
 const Employee = require("../Models/Employee");
+const { validationResult } = require("express-validator");
 
 const getAllComplaints = async (req, res, next) => {
   try {
@@ -11,6 +12,11 @@ const getAllComplaints = async (req, res, next) => {
 };
 
 const createComplaint = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const errorMessages = errors.array().map((error) => error.msg); // Extract messages
+    return res.status(400).json({ errors: errorMessages });
+  }
   const { employeeID, date, category, description } = req.body;
   const newComplaint = new Complaint({
     employeeID,
@@ -19,15 +25,6 @@ const createComplaint = async (req, res, next) => {
     description,
     status: "Filed",
   });
-  try {
-    employee = await Employee.findById(employeeID).exec();
-    if (!employee) {
-      res.status(404).json({ message: "Employee Not Found" });
-      return;
-    }
-  } catch (err) {
-    res.status(500).json({ error: err });
-  }
   try {
     await newComplaint.save();
     res.status(200).json({ message: "Complaint Saved" });

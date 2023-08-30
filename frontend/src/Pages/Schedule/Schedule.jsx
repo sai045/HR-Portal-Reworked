@@ -20,7 +20,10 @@ const Schedule = () => {
       const responseData = await response.json();
       setData(responseData.scheduledApplicants);
       setIsLoading(false);
-    } catch (err) {}
+    } catch (err) {
+      alert("Server Busy. Please try again later");
+      setIsLoading(false);
+    }
   };
   useEffect(() => {
     sendRequest();

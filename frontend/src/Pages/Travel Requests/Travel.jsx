@@ -29,7 +29,10 @@ const Travel = () => {
       }
       setData(responseData.relocations);
       setIsLoading(false);
-    } catch (err) {}
+    } catch (err) {
+      alert("Server busy. Please try again later");
+      setIsLoading(false)
+    }
   };
   useEffect(() => {
     sendRequest();

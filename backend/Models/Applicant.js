@@ -6,6 +6,7 @@ const applicationSchema = mongoose.Schema({
   email: { type: String, required: true },
   phoneNumber: { type: Number, required: true },
   positionAppliedFor: { type: String, required: true },
+  department: { type: String, required: true },
   applicationDate: { type: Date, required: true },
   resume: { type: String, required: true },
   schedule: {type: String, default:""}

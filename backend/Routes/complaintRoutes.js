@@ -1,4 +1,5 @@
 const express = require("express");
+const { check } = require("express-validator");
 
 const router = express.Router();
 const complaintController = require("../Collectors/complaintController");
@@ -7,7 +8,11 @@ const complaintController = require("../Collectors/complaintController");
 // 2. Add Complaint
 // 3. Delete Complaint
 router.get("/", complaintController.getAllComplaints);
-router.post("/", complaintController.createComplaint);
+router.post(
+  "/",
+  [check("description").not().isEmpty().withMessage("Description is required")],
+  complaintController.createComplaint
+);
 router.delete("/:id", complaintController.deleteComplaint);
 
 module.exports = router;

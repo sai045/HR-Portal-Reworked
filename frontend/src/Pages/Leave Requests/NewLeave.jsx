@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 const NewLeave = ({ setIsOpen }) => {
+  const [errors, setErrors] = useState([]);
   const [employeeID, setEmployeeID] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -23,6 +24,10 @@ const NewLeave = ({ setIsOpen }) => {
         }),
       });
       const responseData = await response.json();
+      if (responseData.errors) {
+        setErrors(responseData.errors);
+        return;
+      }
       if (responseData.message == "Forbidden") {
         alert(
           "The operation you are trying is unauthorized. Please Login Again"
@@ -31,60 +36,69 @@ const NewLeave = ({ setIsOpen }) => {
       }
       if (responseData.message == "Employee Not Found") {
         alert("Please enter valid Employee ID");
-        setIsOpen(false);
       }
       if (responseData.message == "Leave Request Created") {
         alert("The operation is successfull");
-        setIsOpen(false);
+        window.location.href = "/leave";
       }
     } catch (err) {
-      console.log(err);
+      alert("Server Busy. Please try again later");
+      window.location.href = "/leave";
     }
   };
   return (
-    <form className="detailsForm" onSubmit={submitHandler}>
-      <input
-        type="text"
-        placeholder="Employee ID"
-        value={employeeID}
-        onChange={(e) => {
-          setEmployeeID(e.target.value);
-        }}
-      />
-      <br />
-      <label htmlFor="">Start Date</label>
-      <br />
-      <input
-        type="date"
-        placeholder="Start Date"
-        value={startDate}
-        onChange={(e) => {
-          setStartDate(e.target.value);
-        }}
-      />
-      <br />
-      <label htmlFor="">End Date</label>
-      <br />
-      <input
-        type="date"
-        placeholder="End Date"
-        value={endDate}
-        onChange={(e) => {
-          setEndDate(e.target.value);
-        }}
-      />
-      <br />
-      <input
-        type="text"
-        placeholder="Reason"
-        value={reason}
-        onChange={(e) => {
-          setReason(e.target.value);
-        }}
-      />
-      <br />
-      <button>Submit</button>
-    </form>
+    <>
+      {errors.length > 0 && (
+        <ul className="errors">
+          {errors.map((error) => (
+            <li>{error}</li>
+          ))}
+        </ul>
+      )}
+      <form className="detailsForm" onSubmit={submitHandler}>
+        <input
+          type="text"
+          placeholder="Employee ID"
+          value={employeeID}
+          onChange={(e) => {
+            setEmployeeID(e.target.value);
+          }}
+        />
+        <br />
+        <label htmlFor="">Start Date</label>
+        <br />
+        <input
+          type="date"
+          placeholder="Start Date"
+          value={startDate}
+          onChange={(e) => {
+            setStartDate(e.target.value);
+          }}
+        />
+        <br />
+        <label htmlFor="">End Date</label>
+        <br />
+        <input
+          type="date"
+          placeholder="End Date"
+          value={endDate}
+          onChange={(e) => {
+            setEndDate(e.target.value);
+          }}
+        />
+        <br />
+        <input
+          type="text"
+          placeholder="Reason"
+          value={reason}
+          onChange={(e) => {
+            setReason(e.target.value);
+          }}
+        />
+        <br />
+        <button>Submit</button>
+      </form>
+    </>
   );
 };
 
