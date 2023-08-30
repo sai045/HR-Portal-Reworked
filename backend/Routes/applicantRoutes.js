@@ -15,16 +15,24 @@ router.get("/:id", applicantController.getApplicant);
 router.post(
   "/",
   [
-    check("firstName").not().isEmpty(),
-    check("lastName").not().isEmpty(),
-    check("email").not().isEmpty(),
-    check("email").isEmail(),
-    check("phoneNumber").not().isEmpty(),
-    check("phoneNumber").isNumeric(),
-    check("positionAppliedFor").not().isEmpty(),
+    check("firstName").not().isEmpty().withMessage("First Name is required"),
+    check("lastName").not().isEmpty().withMessage("Last Name is required"),
+    check("email").not().isEmpty().withMessage("Email is required"),
+    check("email").isEmail().withMessage("Enter Valid email"),
+    check("phoneNumber")
+      .not()
+      .isEmpty()
+      .withMessage("Phone Number is required"),
+    check("phoneNumber")
+      .isLength({ min: 10, max: 10 })
+      .withMessage("Enter Valid Phone number"),
+    check("positionAppliedFor")
+      .not()
+      .isEmpty()
+      .withMessage("Position is Required"),
     check("applicationDate").not().isEmpty(),
     check("applicationDate").isDate(),
-    check("resume").not().isEmpty(),
+    check("resume").not().isEmpty().withMessage("Resume is required"),
   ],
   applicantController.createApplicant
 );

@@ -23,6 +23,7 @@ const employeeSchema = mongoose.Schema({
   complaints: [
     { type: mongoose.Types.ObjectId, required: true, ref: "Complaint" },
   ],
+  password: { type: String, required: true },
 });
 
 module.exports = mongoose.model("Employee", employeeSchema);

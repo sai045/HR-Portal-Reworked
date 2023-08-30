@@ -26,6 +26,7 @@ const Applicant = () => {
           "The operation you are trying is unauthorized. Please Login Again"
         );
         window.location.href = "/";
+        setIsLoading(false);
       }
       setData(responseData.applicants);
       setIsLoading(false);
