@@ -28,7 +28,7 @@ const signup = async (req, res, next) => {
   if (!passwordRegex.test(password)) {
     return res.status(400).json({
       errors: [
-        "Password should contain 1 Capital, 1 Numeric, 1 Lowercase, minimum 8 characters.",
+        "Password should contain 1 Capital, 1 Numeric, 1 Lowercase and minimum 8 characters.",
       ],
     });
   }

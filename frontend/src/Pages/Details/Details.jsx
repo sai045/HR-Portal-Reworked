@@ -17,24 +17,31 @@ const Details = () => {
   );
   const sendRequest = async () => {
     setIsLoading(true);
-    if (decodedToken != undefined) {
-      const email = decodedToken.email;
-      const response = await fetch(
-        process.env.REACT_APP_DOMIAN + "api/auth/getUserDetails",
-        {
-          method: "POST",
-          headers: {
-            Authorization: localStorage.getItem("Authorization"),
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-          }),
-        }
-      );
-      const responseData = await response.json();
-      setUser(responseData.user);
+    try {
+      if (decodedToken != undefined) {
+        const email = decodedToken.email;
+        const response = await fetch(
+          process.env.REACT_APP_DOMIAN + "api/auth/getUserDetails",
+          {
+            method: "POST",
+            headers: {
+              Authorization: localStorage.getItem("Authorization"),
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email,
+            }),
+          }
+        );
+        const responseData = await response.json();
+        setUser(responseData.user);
+        setIsLoading(false);
+      }
+    } catch (err) {
+      alert("Server is currently unreachable, Please come again later");
+      localStorage.removeItem("Authorization");
       setIsLoading(false);
+      window.location.href = "/";
     }
   };
   useEffect(() => {

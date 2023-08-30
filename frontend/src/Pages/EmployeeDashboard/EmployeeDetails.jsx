@@ -33,11 +33,11 @@ const EmployeeDetails = ({ employee }) => {
             <div className="detail">
               <p>
                 {employee.address.street +
-                  "," +
+                  ", " +
                   employee.address.city +
-                  "," +
+                  ", " +
                   employee.address.state +
-                  "," +
+                  ", " +
                   employee.address.zipCode}
               </p>
             </div>

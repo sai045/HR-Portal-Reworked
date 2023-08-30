@@ -1,4 +1,5 @@
 const Employee = require("../Models/Employee");
+const { validationResult } = require("express-validator");
 
 const getAllEmployees = async (req, res, next) => {
   try {
@@ -49,10 +50,12 @@ function generateRandomPassword() {
   return password.join("");
 }
 
-const randomPassword = generateRandomPassword();
-console.log(randomPassword);
-
 const createEmployee = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const errorMessages = errors.array().map((error) => error.msg); // Extract messages
+    return res.status(400).json({ errors: errorMessages });
+  }
   var {
     firstName,
     lastName,
@@ -65,12 +68,12 @@ const createEmployee = async (req, res, next) => {
     city,
     state,
     zipCode,
-    password,
+    // password,
   } = req.body;
 
-  if (password !== null) {
-    password = generateRandomPassword();
-  }
+  // if (password == null) {
+  //   password = generateRandomPassword();
+  // }
 
   const newEmployee = new Employee({
     firstName,
@@ -89,14 +92,18 @@ const createEmployee = async (req, res, next) => {
     complaints: [],
     leaveRequests: [],
     relocationRequests: [],
-    password,
+    // password,
   });
 
   try {
     newEmployee.save();
     res.status(200).json({ message: "Employee Saved" });
   } catch (err) {
-    res.status(500).json({ error: err });
+    // res.status(500).json({ errors: "Server Busy. Please Try again later" });
+    if (error.name === "ValidationError") {
+      // Handle validation errors
+      res.status(400).json({ error: error.message });
+    }
   }
 };
 

@@ -12,7 +12,6 @@ const Signup = () => {
   const [zipCode, setZipCode] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [role, setRole] = useState("");
   const [errors, setErrors] = useState([]);
   const [loading, setIsLoading] = useState(false);
 
@@ -161,15 +160,6 @@ const Signup = () => {
                       setZipCode(e.target.value);
                     }}
                   />
-                  <select
-                    value={role}
-                    onChange={(e) => {
-                      setRole(e.target.value);
-                    }}
-                  >
-                    <option value="Admin">Admin</option>
-                    <option value="Employee">Employee</option>
-                  </select>
                   <input
                     type="password"
                     placeholder="Password"

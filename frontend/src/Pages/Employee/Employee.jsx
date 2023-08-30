@@ -30,7 +30,10 @@ const Employee = () => {
       setData(responseData.employees);
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
+      alert("Server Busy. Please try again later");
+      localStorage.removeItem("Authorization");
+      window.location.href = "/";
+      return;
     }
   };
   useEffect(() => {
