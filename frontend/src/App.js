@@ -13,25 +13,108 @@ import Salary from "./Pages/Salary/Salary";
 import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Signup/Signup";
 import EmployeeDashboard from "./Pages/EmployeeDashboard/EmployeeDashboard";
+import Protected from "./Components/Protected";
+import { useJwt } from "react-jwt";
 
 function App() {
+  const { decodedToken, isExpired } = useJwt(
+    localStorage.getItem("Authorization")
+  );
+  const isSignedIn = !isExpired;
   return (
     <div className="App">
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/applicant" element={<Applicant />} />
-          <Route path="/employee" element={<Employee />} />
-          <Route path="/employee/:id" element={<EmployeeDashboard />}/>
-          <Route path="/leave" element={<Leave />} />
-          <Route path="/schedule" element={<Schedule />} />
-          <Route path="/travel" element={<Travel />} />
-          <Route path="/complaint" element={<Complaints />} />
-          <Route path="/details" element={<Details />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/salary" element={<Salary />} />
+          <Route
+            path="/home"
+            element={
+              <Protected isSignedIn={isSignedIn}>
+                <Home />
+              </Protected>
+            }
+          />
+          <Route
+            path="/applicant"
+            element={
+              <Protected isSignedIn={isSignedIn}>
+                <Applicant />
+              </Protected>
+            }
+          />
+          <Route
+            path="/employee"
+            element={
+              <Protected isSignedIn={isSignedIn}>
+                <Employee />
+              </Protected>
+            }
+          />
+          <Route
+            path="/employee/:id"
+            element={
+              <Protected isSignedIn={isSignedIn}>
+                <EmployeeDashboard />
+              </Protected>
+            }
+          />
+          <Route
+            path="/leave"
+            element={
+              <Protected isSignedIn={isSignedIn}>
+                <Leave />
+              </Protected>
+            }
+          />
+          <Route
+            path="/schedule"
+            element={
+              <Protected isSignedIn={isSignedIn}>
+                <Schedule />
+              </Protected>
+            }
+          />
+          <Route
+            path="/travel"
+            element={
+              <Protected isSignedIn={isSignedIn}>
+                <Travel />
+              </Protected>
+            }
+          />
+          <Route
+            path="/complaint"
+            element={
+              <Protected isSignedIn={isSignedIn}>
+                <Complaints />
+              </Protected>
+            }
+          />
+          <Route
+            path="/details"
+            element={
+              <Protected isSignedIn={isSignedIn}>
+                <Details />
+              </Protected>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <Protected isSignedIn={isSignedIn}>
+                <Dashboard />
+              </Protected>
+            }
+          />
+          <Route
+            path="/salary"
+            element={
+              <Protected isSignedIn={isSignedIn}>
+                <Salary />
+              </Protected>
+            }
+          />
         </Routes>
       </Router>
     </div>
