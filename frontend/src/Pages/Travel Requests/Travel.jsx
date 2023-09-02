@@ -30,7 +30,7 @@ const Travel = () => {
       setData(responseData.relocations);
       setIsLoading(false);
     } catch (err) {
-      alert("Server busy. Please try again later");
+      alert("Server is currently unreachable, Please come again later.");
       setIsLoading(false)
     }
   };

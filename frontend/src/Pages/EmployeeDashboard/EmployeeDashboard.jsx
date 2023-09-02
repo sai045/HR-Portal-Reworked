@@ -41,7 +41,7 @@ const EmployeeDashboard = () => {
       setEmployee(responseData.employee);
       setIsLoading(false);
     } catch (err) {
-      alert("Server Busy. Please try again later");
+      alert("Server is currently unreachable, Please come again later.");
       localStorage.removeItem("Authorization");
       window.location.href = "/";
       return;
@@ -64,7 +64,7 @@ const EmployeeDashboard = () => {
         window.location.href = "/employee";
       }
     } catch (err) {
-      alert("Server Busy. Please try again later");
+      alert("Server is currently unreachable, Please come again later.");
     }
   };
   useEffect(() => {

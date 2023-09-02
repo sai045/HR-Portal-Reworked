@@ -57,7 +57,8 @@ const NewEmployee = ({ setIsOpen }) => {
         window.location.href = "/employee";
       }
     } catch (err) {
-      setErrors(["Server Busy. Please try again later"]);
+      setErrors(["Server is currently unreachable, Please come again later."]);
+      setIsOpen(false)
     }
   };
   return (

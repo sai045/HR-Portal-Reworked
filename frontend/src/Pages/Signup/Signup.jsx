@@ -69,7 +69,7 @@ const Signup = () => {
         return;
       }
     } catch (err) {
-      setErrors(["Server is currently unreachable. Please try again later."]);
+      setErrors(["Server is currently unreachable, Please come again later."]);
       setIsLoading(false);
     }
   };

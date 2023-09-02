@@ -18,7 +18,9 @@ const Complaint = (props) => {
       if (responseData.message == "Complaint Deleted") {
         window.location.href = "/complaint";
       }
-    } catch (err) {}
+    } catch (err) {
+      alert("Server is currently unreachable, Please come again later.");
+    }
   };
   return (
     <div className="complaint">

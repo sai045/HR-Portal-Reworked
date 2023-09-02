@@ -38,7 +38,7 @@ const Details = () => {
         setIsLoading(false);
       }
     } catch (err) {
-      alert("Server is currently unreachable, Please come again later");
+      alert("Server is currently unreachable, Please come again later.");
       localStorage.removeItem("Authorization");
       setIsLoading(false);
       window.location.href = "/";

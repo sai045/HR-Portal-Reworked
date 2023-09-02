@@ -42,7 +42,7 @@ const NewLeave = ({ setIsOpen }) => {
         window.location.href = "/leave";
       }
     } catch (err) {
-      alert("Server Busy. Please try again later");
+      alert("Server is currently unreachable, Please come again later.");
       window.location.href = "/leave";
     }
   };

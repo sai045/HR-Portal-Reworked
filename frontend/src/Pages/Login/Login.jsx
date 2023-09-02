@@ -48,7 +48,7 @@ const Login = () => {
         setLoading(false);
       }
     } catch (err) {
-      setErrors(["Server is currently unreachable. Please try again later."]);
+      setErrors(["Server is currently unreachable, Please come again later."]);
       setLoading(false);
     }
   };

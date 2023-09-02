@@ -23,7 +23,9 @@ const Complaints = () => {
       const responseData = await response.json();
       setData(responseData.complaints);
       setIsLoading(false);
-    } catch (err) {}
+    } catch (err) {
+      alert("Server is currently unreachable, Please come again later.");
+    }
   };
   useEffect(() => {
     sendRequest();

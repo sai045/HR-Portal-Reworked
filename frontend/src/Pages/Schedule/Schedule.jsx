@@ -21,7 +21,7 @@ const Schedule = () => {
       setData(responseData.scheduledApplicants);
       setIsLoading(false);
     } catch (err) {
-      alert("Server Busy. Please try again later");
+      alert("Server is currently unreachable, Please come again later.");
       setIsLoading(false);
     }
   };

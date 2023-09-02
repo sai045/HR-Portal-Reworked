@@ -30,7 +30,7 @@ const Employee = () => {
       setData(responseData.employees);
       setIsLoading(false);
     } catch (err) {
-      alert("Server Busy. Please try again later");
+      alert("Server is currently unreachable, Please come again later.");
       localStorage.removeItem("Authorization");
       window.location.href = "/";
       return;

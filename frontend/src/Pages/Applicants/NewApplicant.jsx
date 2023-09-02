@@ -50,7 +50,7 @@ const NewApplicant = ({ setIsOpen }) => {
         window.location.href = "/applicant";
       }
     } catch (err) {
-      alert("Server Busy. Please Try again later");
+      alert("Server is currently unreachable, Please come again later.");
       window.location.href = "/applicant";
     }
   };

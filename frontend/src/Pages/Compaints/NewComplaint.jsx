@@ -44,7 +44,7 @@ const NewComplaint = ({ setIsOpen }) => {
         window.location.href = "/complaint";
       }
     } catch (err) {
-      alert("Server busy. Please try again later");
+      alert("Server is currently unreachable, Please come again later.");
       window.location.href = "/complaint";
     }
   };
