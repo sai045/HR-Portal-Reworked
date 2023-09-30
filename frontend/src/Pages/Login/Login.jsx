@@ -32,6 +32,7 @@ const Login = () => {
         }
       );
       const responseData = await response.json();
+      // console.log(responseData);
 
       if (responseData.errors) {
         setErrors(responseData.errors);
@@ -41,6 +42,7 @@ const Login = () => {
 
       if (responseData.message == "Auth Sucessfull") {
         localStorage.setItem("Authorization", responseData.token);
+        localStorage.setItem("Role", responseData.role);
         setLoading(false);
         window.location.href = "home";
       } else {

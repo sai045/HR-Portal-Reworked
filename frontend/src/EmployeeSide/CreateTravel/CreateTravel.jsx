@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../create.css";
+import Navbar from "../../Components/Navbar";
 
 const CreateTravel = () => {
   const [errors, setErrors] = useState([]);
@@ -59,6 +60,7 @@ const CreateTravel = () => {
   };
   return (
     <>
+      <Navbar />
       {errors.length > 0 && (
         <ul className="errors">
           {errors.map((error) => (

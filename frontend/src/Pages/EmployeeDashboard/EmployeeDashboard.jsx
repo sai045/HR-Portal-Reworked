@@ -8,6 +8,7 @@ import EmployeeTable from "./EmployeeTable";
 const EmployeeDashboard = () => {
   const [loading, setIsLoading] = useState(false);
   const { id } = useParams();
+  const role = localStorage.getItem("Role");
   const [employee, setEmployee] = useState({
     address: {
       street: "",
@@ -92,9 +93,11 @@ const EmployeeDashboard = () => {
             />
             <EmployeeTable data={employee.complaints} title={"Complaints"} />
           </div>
-          <button className="employeeDelete" onClick={deleteRequest}>
-            Delete Employee
-          </button>
+          {role === "Admin" && (
+            <button className="employeeDelete" onClick={deleteRequest}>
+              Delete Employee
+            </button>
+          )}
         </>
       )}
     </>

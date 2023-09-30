@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Navbar from "../../Components/Navbar";
 import "../create.css";
 
 const CreateComplaint = () => {
@@ -51,6 +52,7 @@ const CreateComplaint = () => {
   };
   return (
     <>
+      <Navbar />
       {errors.length > 0 && (
         <ul className="errors">
           {errors.map((error) => (

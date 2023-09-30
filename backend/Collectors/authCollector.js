@@ -93,20 +93,23 @@ const login = async (req, res, next) => {
                   return res.status(401).json({ message: "Auth Failed" });
                 }
                 if (result) {
+                  // console.log(employee[0]._id.toString());
                   const token = jwt.sign(
                     {
                       email: employee[0].email,
                       name: employee[0].lastName,
-                      role: "Employee",
+                      id: employee[0]._id.toString(),
                     },
                     process.env.jwt_secret,
                     {
                       expiresIn: "1h",
                     }
                   );
-                  return res
-                    .status(200)
-                    .json({ message: "Auth Sucessfull", token: token });
+                  return res.status(200).json({
+                    message: "Auth Sucessfull",
+                    token: token,
+                    role: "Employee",
+                  });
                 }
                 res.status(401).json({ message: "Auth Failed" });
               }
@@ -122,16 +125,17 @@ const login = async (req, res, next) => {
               {
                 email: user[0].email,
                 name: user[0].lastName,
-                role: "Admin",
               },
               process.env.jwt_secret,
               {
                 expiresIn: "1h",
               }
             );
-            return res
-              .status(200)
-              .json({ message: "Auth Sucessfull", token: token });
+            return res.status(200).json({
+              message: "Auth Sucessfull",
+              token: token,
+              role: "Admin",
+            });
           }
           res.status(401).json({ message: "Auth Failed" });
         });

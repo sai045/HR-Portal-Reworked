@@ -24,6 +24,13 @@ function App() {
     localStorage.getItem("Authorization")
   );
   const isSignedIn = !isExpired;
+  const role = localStorage.getItem("Role");
+  var isAllowed;
+  if (role === "Admin") {
+    isAllowed = true;
+  } else {
+    isAllowed = false;
+  }
   return (
     <div className="App">
       <Router>
@@ -50,7 +57,7 @@ function App() {
           <Route
             path="/employee"
             element={
-              <Protected isSignedIn={isSignedIn}>
+              <Protected isSignedIn={isSignedIn} isAllowed={isAllowed}>
                 <Employee />
               </Protected>
             }
@@ -66,7 +73,7 @@ function App() {
           <Route
             path="/leave"
             element={
-              <Protected isSignedIn={isSignedIn}>
+              <Protected isSignedIn={isSignedIn} isAllowed={isAllowed}>
                 <Leave />
               </Protected>
             }
@@ -82,7 +89,7 @@ function App() {
           <Route
             path="/travel"
             element={
-              <Protected isSignedIn={isSignedIn}>
+              <Protected isSignedIn={isSignedIn} isAllowed={isAllowed}>
                 <Travel />
               </Protected>
             }
@@ -90,7 +97,7 @@ function App() {
           <Route
             path="/complaint"
             element={
-              <Protected isSignedIn={isSignedIn}>
+              <Protected isSignedIn={isSignedIn} isAllowed={isAllowed}>
                 <Complaints />
               </Protected>
             }
@@ -106,7 +113,7 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              <Protected isSignedIn={isSignedIn}>
+              <Protected isSignedIn={isSignedIn} isAllowed={isAllowed}>
                 <Dashboard />
               </Protected>
             }
@@ -114,7 +121,7 @@ function App() {
           <Route
             path="/salary"
             element={
-              <Protected isSignedIn={isSignedIn}>
+              <Protected isSignedIn={isSignedIn} isAllowed={isAllowed}>
                 <Salary />
               </Protected>
             }

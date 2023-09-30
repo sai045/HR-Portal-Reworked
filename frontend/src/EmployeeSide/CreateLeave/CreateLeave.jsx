@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../create.css";
+import Navbar from "../../Components/Navbar";
 
 const CreateLeave = () => {
   const [errors, setErrors] = useState([]);
@@ -49,6 +50,7 @@ const CreateLeave = () => {
   };
   return (
     <>
+      <Navbar />
       {errors.length > 0 && (
         <ul className="errors">
           {errors.map((error) => (
