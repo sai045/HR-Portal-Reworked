@@ -15,6 +15,9 @@ import Signup from "./Pages/Signup/Signup";
 import EmployeeDashboard from "./Pages/EmployeeDashboard/EmployeeDashboard";
 import Protected from "./Components/Protected";
 import { useJwt } from "react-jwt";
+import CreateComplaint from "./EmployeeSide/CreateComplaint/CreateComplaint";
+import CreateLeave from "./EmployeeSide/CreateLeave/CreateLeave";
+import CreateTravel from "./EmployeeSide/CreateTravel/CreateTravel";
 
 function App() {
   const { decodedToken, isExpired } = useJwt(
@@ -27,6 +30,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          {/* HR  */}
           <Route
             path="/home"
             element={
@@ -115,6 +119,10 @@ function App() {
               </Protected>
             }
           />
+          {/* Employee  */}
+          <Route path="/createComplaint" element={<CreateComplaint />} />
+          <Route path="/createLeave" element={<CreateLeave />} />
+          <Route path="/createTravel" element={<CreateTravel />} />
         </Routes>
       </Router>
     </div>
