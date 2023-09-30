@@ -1,5 +1,7 @@
 const Employee = require("../Models/Employee");
 const { validationResult } = require("express-validator");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const getAllEmployees = async (req, res, next) => {
   try {
@@ -24,31 +26,31 @@ const getEmployee = async (req, res, next) => {
   }
 };
 
-function generateRandomPassword() {
-  const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
-  const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const numericChars = "0123456789";
+// function generateRandomPassword() {
+//   const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+//   const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+//   const numericChars = "0123456789";
 
-  const allChars = lowercaseChars + uppercaseChars + numericChars;
+//   const allChars = lowercaseChars + uppercaseChars + numericChars;
 
-  let password = "";
-  password += lowercaseChars[Math.floor(Math.random() * lowercaseChars.length)];
-  password += uppercaseChars[Math.floor(Math.random() * uppercaseChars.length)];
-  password += numericChars[Math.floor(Math.random() * numericChars.length)];
+//   let password = "";
+//   password += lowercaseChars[Math.floor(Math.random() * lowercaseChars.length)];
+//   password += uppercaseChars[Math.floor(Math.random() * uppercaseChars.length)];
+//   password += numericChars[Math.floor(Math.random() * numericChars.length)];
 
-  for (let i = 0; i < 5; i++) {
-    password += allChars[Math.floor(Math.random() * allChars.length)];
-  }
+//   for (let i = 0; i < 5; i++) {
+//     password += allChars[Math.floor(Math.random() * allChars.length)];
+//   }
 
-  // Convert password to array and shuffle it for better randomness
-  password = password.split("");
-  for (let i = password.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [password[i], password[j]] = [password[j], password[i]];
-  }
+//   // Convert password to array and shuffle it for better randomness
+//   password = password.split("");
+//   for (let i = password.length - 1; i > 0; i--) {
+//     const j = Math.floor(Math.random() * (i + 1));
+//     [password[i], password[j]] = [password[j], password[i]];
+//   }
 
-  return password.join("");
-}
+//   return password.join("");
+// }
 
 const createEmployee = async (req, res, next) => {
   const errors = validationResult(req);
@@ -68,12 +70,12 @@ const createEmployee = async (req, res, next) => {
     city,
     state,
     zipCode,
-    // password,
+    password,
   } = req.body;
 
-  // if (password == null) {
-  //   password = generateRandomPassword();
-  // }
+  if (password == null) {
+    password = "test123";
+  }
 
   const newEmployee = new Employee({
     firstName,
@@ -92,19 +94,42 @@ const createEmployee = async (req, res, next) => {
     complaints: [],
     leaveRequests: [],
     relocationRequests: [],
-    // password,
+    password,
   });
 
-  try {
-    newEmployee.save();
-    res.status(200).json({ message: "Employee Saved" });
-  } catch (err) {
-    // res.status(500).json({ errors: "Server Busy. Please Try again later" });
-    if (error.name === "ValidationError") {
-      // Handle validation errors
-      res.status(400).json({ error: error.message });
+  bcrypt.hash(password, 10, async (err, hash) => {
+    if (err) {
+      return res.status(500).json({ error: err });
     }
-  }
+    const newEmployee = new Employee({
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      position,
+      department,
+      joinDate,
+      address: {
+        street,
+        city,
+        state,
+        zipCode,
+      },
+      complaints: [],
+      leaveRequests: [],
+      relocationRequests: [],
+      password: hash,
+    });
+
+    await newEmployee
+      .save()
+      .then(() => {
+        res.status(200).json({ message: "Employee Sucessfully added" });
+      })
+      .catch((err) => {
+        res.status(404).json({ error: err });
+      });
+  });
 };
 
 const deleteEmployee = async (req, res, next) => {

@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const { validationResult } = require("express-validator");
+const Employee = require("../Models/Employee");
 
 const signup = async (req, res, next) => {
   const errors = validationResult(req);
@@ -76,29 +77,65 @@ const login = async (req, res, next) => {
     .exec()
     .then((user) => {
       if (user.length < 1) {
-        return res.status(401).json({ message: "User Not Found" });
-      }
-      bcrypt.compare(req.body.password, user[0].password, (err, result) => {
-        if (err) {
-          return res.status(401).json({ message: "Auth Failed" });
-        }
-        if (result) {
-          const token = jwt.sign(
-            {
-              email: user[0].email,
-              name: user[0].lastName,
-            },
-            process.env.jwt_secret,
-            {
-              expiresIn: "1h",
+        Employee.find({ email: req.body.email })
+          .exec()
+          .then((employee) => {
+            if (employee.length < 1) {
+              return res
+                .status(401)
+                .json({ message: "User or Employee Not Found" });
             }
-          );
-          return res
-            .status(200)
-            .json({ message: "Auth Sucessfull", token: token });
-        }
-        res.status(401).json({ message: "Auth Failed" });
-      });
+            bcrypt.compare(
+              req.body.password,
+              employee[0].password,
+              (err, result) => {
+                if (err) {
+                  return res.status(401).json({ message: "Auth Failed" });
+                }
+                if (result) {
+                  const token = jwt.sign(
+                    {
+                      email: employee[0].email,
+                      name: employee[0].lastName,
+                      role: "Employee",
+                    },
+                    process.env.jwt_secret,
+                    {
+                      expiresIn: "1h",
+                    }
+                  );
+                  return res
+                    .status(200)
+                    .json({ message: "Auth Sucessfull", token: token });
+                }
+                res.status(401).json({ message: "Auth Failed" });
+              }
+            );
+          });
+      } else {
+        bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+          if (err) {
+            return res.status(401).json({ message: "Auth Failed" });
+          }
+          if (result) {
+            const token = jwt.sign(
+              {
+                email: user[0].email,
+                name: user[0].lastName,
+                role: "Admin",
+              },
+              process.env.jwt_secret,
+              {
+                expiresIn: "1h",
+              }
+            );
+            return res
+              .status(200)
+              .json({ message: "Auth Sucessfull", token: token });
+          }
+          res.status(401).json({ message: "Auth Failed" });
+        });
+      }
     })
     .catch((err) => {
       console.log(err);

@@ -51,7 +51,7 @@ const NewEmployee = ({ setIsOpen }) => {
         );
         window.location.href = "/";
       }
-      if (responseData.message == "Employee Saved") {
+      if (responseData.message == "Employee Sucessfully added") {
         alert("The operation is successfull");
         setIsOpen(false);
         window.location.href = "/employee";
